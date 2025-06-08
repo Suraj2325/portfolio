@@ -21,7 +21,6 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden section-bg-hero pt-20"
     >
-      {/* Subtle Background Pattern */}
       <div className="absolute inset-0">
         <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -105,14 +104,30 @@ export default function Hero() {
               Get In Touch
             </Button>
             <a
-  href="/Suraj_mali_Resume.pdf"
-  download
-  className="inline-block text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 rounded"
->
-  Download Resume
-</a>
-
+              href="/Suraj_mali_Resume.pdf"
+              download
+              className="inline-block text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 rounded"
+            >
+              Download Resume
+            </a>
           </motion.div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, x: 50 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ delay: 0.4, duration: 0.8, type: "spring", stiffness: 100 }}
+          className="lg:w-1/2 flex justify-center items-center"
+        >
+          <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px]">
+            <Image
+              src="/images/hero-avatar.jpeg"
+              alt="Suraj Mali - Hero Avatar"
+              fill
+              className="object-cover rounded-3xl shadow-lg border border-white dark:border-gray-800"
+              priority
+            />
+          </div>
         </motion.div>
       </div>
     </section>
