@@ -1,19 +1,31 @@
 "use client"
+
 import { motion } from "framer-motion"
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false)
+  const [typedText, setTypedText] = useState("")
+  const fullText = "Software Engineer"
 
   useEffect(() => {
     setMounted(true)
+    let index = 0
+    const interval = setInterval(() => {
+      if (index < fullText.length) {
+        setTypedText(fullText.slice(0, index + 1))
+        index++
+      } else {
+        clearInterval(interval)
+      }
+    }, 70)
+    return () => clearInterval(interval)
   }, [])
 
-  const scrollToAbout = () => {
-    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
@@ -21,6 +33,7 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden section-bg-hero pt-20"
     >
+      {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -36,14 +49,16 @@ export default function Hero() {
           <div
             className="w-full h-full"
             style={{
-              backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)`,
+              backgroundImage: `linear-gradient(rgba(59,130,246,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.1) 1px, transparent 1px)`,
               backgroundSize: "50px 50px",
             }}
           />
         </div>
       </div>
 
+      {/* Main Content */}
       <div className="relative z-10 container mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-16">
+        {/* Text */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -76,43 +91,77 @@ export default function Hero() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="space-y-4"
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">Backend Engineer</h2>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground h-10">
+              <span suppressHydrationWarning className="text-blue-600 dark:text-blue-400">
+                {mounted ? typedText : ""}
+              </span>
+            </h2>
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-              Software Engineer with 3.6+ years' experience in Java, Spring Boot, and Microservices. Specialized in building scalable APIs, integrating AI-driven solutions, and delivering impactful backend architecture.
+              Software Engineer with 3.6+ years' experience in Java, Spring Boot, and Microservices. Specialized in
+              building scalable APIs, integrating AI-driven solutions, and delivering impactful backend architecture.
             </p>
           </motion.div>
 
+          {/* Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
           >
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-8 py-3 shadow-lg"
-              onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              View My Work
-            </Button>
+            {/* View My Work */}
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold px-8 py-3"
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+              className="group relative border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold px-8 py-3 transition-all duration-300 overflow-hidden"
+              onClick={() => scrollTo("projects")}
             >
-              Get In Touch
+              <span className="flex items-center gap-2">
+                <motion.span whileHover={{ scale: 1.2 }} className="group-hover:animate-ping">
+                  🔍
+                </motion.span>
+                View My Work
+              </span>
+              <span className="absolute inset-0 rounded-lg border border-blue-500 opacity-0 group-hover:opacity-50 group-hover:shadow-[0_0_10px_2px_rgba(59,130,246,0.5)] transition duration-500 pointer-events-none" />
             </Button>
-            <a
-              href="/Suraj_mali_Resume.pdf"
-              download
-              className="inline-block text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 rounded"
+
+            {/* Get In Touch */}
+            <Button
+              size="lg"
+              variant="outline"
+              className="group relative border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold px-8 py-3 transition-all duration-300 overflow-hidden"
+              onClick={() => scrollTo("contact")}
             >
-              Download Resume
-            </a>
+              <span className="flex items-center gap-2">
+                <motion.span whileHover={{ rotate: 20, scale: 1.2 }} className="group-hover:animate-pulse">
+                  📬
+                </motion.span>
+                Get In Touch
+              </span>
+              <span className="absolute inset-0 rounded-lg border border-blue-500 opacity-0 group-hover:opacity-50 group-hover:shadow-[0_0_10px_2px_rgba(59,130,246,0.5)] transition duration-500 pointer-events-none" />
+            </Button>
+
+            {/* Download Resume */}
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="group relative border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold px-8 py-3 transition-all duration-300 overflow-hidden"
+            >
+              <a href="/Suraj_mali_Resume.pdf" download>
+                <span className="flex items-center gap-2">
+                  <motion.span whileHover={{ scale: 1.2 }} className="group-hover:animate-bounce">
+                    📄
+                  </motion.span>
+                  Download Resume
+                </span>
+                <span className="absolute inset-0 rounded-lg border border-blue-500 opacity-0 group-hover:opacity-50 group-hover:shadow-[0_0_10px_2px_rgba(59,130,246,0.5)] transition duration-500 pointer-events-none" />
+              </a>
+            </Button>
           </motion.div>
         </motion.div>
 
+        {/* Avatar Image */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8, x: 50 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
