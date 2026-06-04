@@ -91,13 +91,13 @@ export default function Contact() {
       <div className="absolute inset-0 opacity-20 dark:block hidden">
         <svg className="w-full h-full" viewBox="0 0 100 100">
           <defs>
-            <pattern id="network" x="0" y="0" width="25" height="25" patternUnits="userSpaceOnUse">
+            <pattern id="network-pattern" x="0" y="0" width="25" height="25" patternUnits="userSpaceOnUse">
               <circle cx="12.5" cy="12.5" r="1" fill="#3B82F6" opacity="0.5" />
               <line x1="12.5" y1="12.5" x2="25" y2="12.5" stroke="#8B5CF6" strokeWidth="0.5" opacity="0.3" />
               <line x1="12.5" y1="12.5" x2="12.5" y2="25" stroke="#8B5CF6" strokeWidth="0.5" opacity="0.3" />
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#network)" />
+          <rect width="100%" height="100%" fill="url(#network-pattern)" />
         </svg>
       </div>
 
