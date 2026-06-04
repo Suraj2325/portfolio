@@ -70,9 +70,27 @@ export async function sendContactEmail(formData: FormData): Promise<ContactFormR
       `,
     }
 
-    // Try to send email using a web-based email service
+    // Check if Resend API key is configured
+    if (!process.env.RESEND_API_KEY) {
+      console.log("=== CONTACT FORM SUBMISSION (No API Key) ===")
+      console.log(`Name: ${name}`)
+      console.log(`Email: ${email}`)
+      console.log(`Subject: ${subject}`)
+      console.log(`Message: ${message}`)
+      console.log(`Timestamp: ${new Date().toISOString()}`)
+      console.log("============================================")
+
+      return {
+        success: false,
+        message:
+          "Email service is not configured yet. Please email me directly at Surajdeveloper2325@gmail.com or set up RESEND_API_KEY.",
+      }
+    }
+
+    // Try to send email using Resend (works perfectly with Vercel)
     try {
-      // Use Resend API (works well with Vercel)
+      // Send notification email to YOU
+      // Using Resend's default domain "onboarding@resend.dev" - no domain verification needed
       const response = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
@@ -80,7 +98,7 @@ export async function sendContactEmail(formData: FormData): Promise<ContactFormR
           Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: "portfolio@surajmali.dev",
+          from: "Portfolio Contact <onboarding@resend.dev>",
           to: ["Surajdeveloper2325@gmail.com"],
           subject: emailData.subject,
           html: emailData.html,
@@ -88,19 +106,24 @@ export async function sendContactEmail(formData: FormData): Promise<ContactFormR
         }),
       })
 
+      const responseData = await response.json()
+
       if (!response.ok) {
-        throw new Error("Resend API failed")
+        console.error("Resend API error:", responseData)
+        throw new Error(responseData.message || "Resend API failed")
       }
 
-      // Send auto-reply
-      await fetch("https://api.resend.com/emails", {
+      console.log("Notification email sent successfully:", responseData.id)
+
+      // Send auto-reply to the sender
+      const autoReplyResponse = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: "portfolio@surajmali.dev",
+          from: "Suraj Mali <onboarding@resend.dev>",
           to: [email],
           subject: "Thank you for contacting me! - Suraj Mali",
           html: `
@@ -148,25 +171,28 @@ export async function sendContactEmail(formData: FormData): Promise<ContactFormR
         }),
       })
 
+      const autoReplyData = await autoReplyResponse.json()
+      console.log("Auto-reply sent:", autoReplyData.id || "failed but main email sent")
+
       return {
         success: true,
         message: "Message sent successfully! I'll get back to you soon. Check your email for a confirmation.",
       }
-    } catch (resendError) {
-      // Fallback: Log the message and return success (you can check logs)
-      console.log("=== CONTACT FORM SUBMISSION ===")
+    } catch (resendError: any) {
+      console.error("Resend error:", resendError)
+
+      // Log the message so you can check Vercel logs
+      console.log("=== CONTACT FORM SUBMISSION (Email Failed) ===")
       console.log(`Name: ${name}`)
       console.log(`Email: ${email}`)
       console.log(`Subject: ${subject}`)
       console.log(`Message: ${message}`)
-      console.log(`Timestamp: ${new Date().toISOString()}`)
-      console.log("================================")
+      console.log(`Error: ${resendError.message}`)
+      console.log("==============================================")
 
-      // For now, return success so users don't see errors
-      // You can check the Vercel function logs to see the messages
       return {
-        success: true,
-        message: `Thank you ${name}! Your message has been received. I'll get back to you at ${email} within 24-48 hours.`,
+        success: false,
+        message: `Failed to send email. Please email me directly at Surajdeveloper2325@gmail.com. Error: ${resendError.message}`,
       }
     }
   } catch (error) {

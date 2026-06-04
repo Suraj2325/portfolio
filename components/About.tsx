@@ -8,25 +8,25 @@ const workExperience = [
   {
     year: "May 2023 - Present",
     title: "Software Engineer",
-    company: "Dure Technologies",
+    company: "Dure Technologies, Thane",
     description:
-      "Leading backend development in public health domain projects across 40+ countries. Upgraded Spring Boot framework, integrated AI (OpenGPT, Spring AI), and built high-performance APIs and schedulers.",
+      "Designing scalable RESTful APIs for a public health platform serving 40+ governments globally. Migrated Spring Boot 2.7 → 3.3, integrated AI automation with Spring AI, LangChain4j & OpenAI APIs, and improved API performance by 30–40% through caching and query optimization.",
     icon: Code2,
   },
   {
     year: "Oct 2022 - May 2023",
     title: "Software Developer",
-    company: "Birlasoft Pvt Ltd.",
+    company: "Birlasoft Pvt Ltd., Pune",
     description:
-      "Worked on a healthcare domain project. Built REST APIs using Spring Boot and Oracle DB, ensured code quality with JUnit, and participated in agile workflows using Azure DevOps.",
+      "Developed enterprise backend applications using Java 8, Spring Boot, Spring Data JPA, and Oracle DB. Designed scalable REST APIs for healthcare systems and optimized SQL queries for high-volume data processing.",
     icon: Coffee,
   },
   {
-    year: "Sep 2021 - Sep 2022",
+    year: "Sep 2021 - Oct 2022",
     title: "Associate Developer",
-    company: "We Value Soft",
+    company: "Web Crypyt Technology, Pune",
     description:
-      "Developed backend applications using Core Java, Spring Boot, and Hibernate. Focused on exception handling, REST APIs, and Agile methodologies.",
+      "Built backend applications using Core Java, Spring, Spring Boot, Hibernate, and MySQL. Developed and maintained RESTful APIs and web services applying OOPs, Collections, and Exception handling.",
     icon: MapPin,
   },
 ]
@@ -45,10 +45,10 @@ const education = [
 
 // Stat Data (optional)
 const stats = [
-  { number: "3.6+", label: "Years Experience", icon: Calendar },
-  { number: "8+", label: "Projects Delivered", icon: Award },
-  { number: "40+", label: "Countries Impacted", icon: Users },
-  { number: "30–40%", label: "Updates and Migrations", icon: Award },
+  { number: "4.6+", label: "Years Experience", icon: Calendar },
+  { number: "10+", label: "Projects Delivered", icon: Award },
+  { number: "40+", label: "Governments Served", icon: Users },
+  { number: "90K+", label: "Patients Impacted", icon: Award },
 ]
 
 // Timeline Card Component (reusable)
@@ -165,14 +165,13 @@ export default function About() {
       >
         <h3 className="text-2xl font-semibold mb-6 text-foreground">My Story</h3>
         <p className="mb-4">
-          I’m Suraj — a software engineer crafting scalable, AI-driven systems with Java and Spring Boot.
+          I&apos;m Suraj — a Java Backend Engineer crafting scalable microservices and AI-powered systems with Spring Boot, LangChain4j, and cloud-native architectures.
         </p>
         <p className="mb-4">
-          From global health tech to enterprise microservices, I’ve built APIs, automated data flows, and improved
-          public service software across 40+ countries.
+          Over the last 4.6+ years, I&apos;ve delivered enterprise platforms serving 40+ governments and 90K+ patients globally — building REST APIs, automating workflows with LLM agents, and tuning performance across distributed systems.
         </p>
         <p>
-          I love solving real-world problems with clean code, clear docs, and curious thinking.
+          I love solving real-world problems with clean architecture, performance optimization, and a healthy obsession with developer experience.
         </p>
       </motion.div>
 

@@ -4,7 +4,7 @@ import React from "react"
 
 import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion"
 import { useRef, useEffect, useState } from "react"
-import { Database, Server, Layers, GitBranch, Terminal, Cpu } from "lucide-react"
+import { Database, Server, Layers, GitBranch, Terminal, Cpu, Sparkles, Cloud } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 // Define skill categories with enhanced visual elements
@@ -17,35 +17,77 @@ const skillCategories = [
     skills: [
       "Java (11/17)",
       "Spring Boot",
-      "Microservices",
-      "Schedulers",
       "Spring MVC",
-      "JPA / Hibernate",
-      "JUnit Testing",
-      "RESTful APIs",
+      "Spring Data JPA",
+      "Spring Security",
+      "Microservices",
+      "REST APIs",
+      "Hibernate",
+      "Web Services",
+      "JSP",
+      "System Design",
       "Maven",
     ],
   },
   {
-    title: "Frontend Basics",
-    icon: Layers,
-    color: "from-blue-500 to-cyan-500",
-    glowColor: "rgba(59, 130, 246, 0.3)",
-    skills: ["HTML5", "CSS3", "JavaScript (ES6)", "JSP / Thymeleaf"],
-  },
-  {
-    title: "Tools & Technologies",
-    icon: Terminal,
-    color: "from-purple-500 to-pink-500",
-    glowColor: "rgba(168, 85, 247, 0.3)",
-    skills: ["Git / GitHub", "Quartz Scheduler", "JWT / Security", "Agile / Jira", "Docker"],
+    title: "AI & Automation",
+    icon: Sparkles,
+    color: "from-fuchsia-500 to-pink-600",
+    glowColor: "rgba(217, 70, 239, 0.3)",
+    skills: [
+      "LangChain4j",
+      "Spring AI",
+      "RAG Pipelines",
+      "OpenAI APIs",
+      "LLM Agents",
+      "Claude",
+      "Groq",
+      "GitHub Copilot",
+    ],
   },
   {
     title: "Databases",
     icon: Database,
     color: "from-blue-600 to-indigo-600",
     glowColor: "rgba(79, 70, 229, 0.3)",
-    skills: ["MySQL", "Oracle", "MongoDB", "PostgreSQL"],
+    skills: ["MongoDB", "PostgreSQL", "MySQL", "Oracle", "Redis"],
+  },
+  {
+    title: "DevOps & Tools",
+    icon: Terminal,
+    color: "from-purple-500 to-pink-500",
+    glowColor: "rgba(168, 85, 247, 0.3)",
+    skills: [
+      "Docker",
+      "Jenkins",
+      "CI/CD",
+      "Git / GitHub",
+      "JIRA",
+      "SonarQube",
+      "JWT / Security",
+      "Agile",
+    ],
+  },
+  {
+    title: "Cloud",
+    icon: Cloud,
+    color: "from-sky-500 to-blue-600",
+    glowColor: "rgba(14, 165, 233, 0.3)",
+    skills: ["AWS EC2", "AWS S3", "AWS IAM"],
+  },
+  {
+    title: "Testing & Performance",
+    icon: Cpu,
+    color: "from-amber-500 to-orange-600",
+    glowColor: "rgba(245, 158, 11, 0.3)",
+    skills: ["JUnit", "Quartz Scheduler", "Apache POI", "VisualVM", "JProfiler"],
+  },
+  {
+    title: "Frontend Basics",
+    icon: Layers,
+    color: "from-blue-500 to-cyan-500",
+    glowColor: "rgba(59, 130, 246, 0.3)",
+    skills: ["HTML5", "CSS3", "JavaScript (ES6)", "Python", "Thymeleaf"],
   },
 ]
 
@@ -339,10 +381,10 @@ export default function Skills() {
           className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
         >
           {[
-            { label: "Years Experience", value: "3.6+", icon: Cpu },
-            { label: "Skills Mastered", value: "20+", icon: Terminal },
-            { label: "Projects Completed", value: "8+", icon: GitBranch },
-            { label: "Countries Impacted", value: "40+", icon: Layers },
+            { label: "Years Experience", value: "4.6+", icon: Cpu },
+            { label: "Skills Mastered", value: "40+", icon: Terminal },
+            { label: "Projects Delivered", value: "10+", icon: GitBranch },
+            { label: "Governments Served", value: "40+", icon: Layers },
           ].map((stat, idx) => (
             <motion.div
               key={stat.label}
