@@ -8,12 +8,24 @@ import Image from "next/image"
 
 const projects = [
   {
+    id: 0,
+    title: "AI-Powered SDLC Automation Platform",
+    description:
+      "Internal LLM-agent platform that automates SDLC: RFP extraction, BRD/HLD/LLD generation, Playwright test-script generation, and a VAPT agent running 30+ security test cases (SQLi, XSS, CSRF) with auto-generated vulnerability reports.",
+    image: "/images/ai-sdlc-platform.png",
+    tags: ["Spring Boot", "LangChain4j", "OpenAI", "RAG", "LLM Agents", "Playwright"],
+    liveUrl: "#",
+    githubUrl: "https://github.com",
+    featured: true,
+    category: "enterprise",
+  },
+  {
     id: 1,
     title: "OneImpact Platform",
     description:
-      "Empowered 90K+ patients in 28+ countries through AI-enabled TB response with Spring Boot and OpenGPT integration.",
+      "Digital platform for global TB response — supporting 28+ countries, 33+ partners, and 90K+ patients across Africa, Asia, and Eastern Europe with AI-driven insights and automated workflows.",
     image: "/images/oneimpact-dashboard.png",
-    tags: ["Spring Boot", "MongoDB", "Spring AI", "OpenGPT"],
+    tags: ["Spring Boot", "MongoDB", "Spring AI", "OpenAI", "Microservices"],
     liveUrl: "https://example.com/oneimpact",
     githubUrl: "https://github.com",
     featured: true,
@@ -45,14 +57,14 @@ const projects = [
   },
   {
     id: 4,
-    title: "Globida Insurance Engine",
+    title: "Globida Insurance Platform",
     description:
-      "Built backend for insurance platform enabling claim management and risk analysis for UK-based client.",
+      "Scalable insurance microservices for Aviva UK — policy, claims, and customer management. Optimized MySQL schemas for high-volume transactions and reduced response time via caching and query tuning.",
     image: "/images/insurance-engine.png",
-    tags: ["Core Java", "Spring Boot", "MySQL"],
+    tags: ["Spring Boot", "Microservices", "MySQL", "REST APIs"],
     liveUrl: "https://example.com/globida",
     githubUrl: "https://github.com",
-    featured: false,
+    featured: true,
     category: "enterprise",
   },
   {

@@ -7,6 +7,7 @@ import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, Loader2 } from "lu
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { sendContactEmail } from "@/app/actions/contact"
 
 export default function Contact() {
   const ref = useRef(null)
@@ -26,66 +27,26 @@ export default function Contact() {
     setSubmitResult(null)
 
     try {
-      // Use EmailJS for direct email sending
-      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          service_id: "service_portfolio", // You'll get this from EmailJS
-          template_id: "template_contact", // You'll get this from EmailJS
-          user_id: "YOUR_EMAILJS_USER_ID", // You'll get this from EmailJS
-          template_params: {
-            from_name: formData.name,
-            from_email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-            to_email: "Surajdeveloper2325@gmail.com",
-          },
-        }),
-      })
+      // Build FormData and call the Server Action which uses Resend
+      const data = new FormData()
+      data.append("name", formData.name)
+      data.append("email", formData.email)
+      data.append("subject", formData.subject)
+      data.append("message", formData.message)
 
-      if (response.ok) {
-        setSubmitResult({
-          success: true,
-          message: "Message sent successfully! I'll get back to you soon.",
-        })
+      const result = await sendContactEmail(data)
+
+      setSubmitResult(result)
+
+      if (result.success) {
         setFormData({ name: "", email: "", subject: "", message: "" })
-      } else {
-        throw new Error("EmailJS failed")
       }
-    } catch (error) {
-      // Fallback: Use Formspree (another reliable option)
-      try {
-        const formspreeResponse = await fetch("https://formspree.io/f/YOUR_FORMSPREE_ID", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-          }),
-        })
-
-        if (formspreeResponse.ok) {
-          setSubmitResult({
-            success: true,
-            message: "Message sent successfully! I'll get back to you soon.",
-          })
-          setFormData({ name: "", email: "", subject: "", message: "" })
-        } else {
-          throw new Error("Formspree failed")
-        }
-      } catch (formspreeError) {
-        setSubmitResult({
-          success: false,
-          message: "Failed to send message. Please email me directly at Surajdeveloper2325@gmail.com",
-        })
-      }
+    } catch (error: any) {
+      console.error("Contact form error:", error)
+      setSubmitResult({
+        success: false,
+        message: "Something went wrong. Please email me directly at Surajdeveloper2325@gmail.com",
+      })
     } finally {
       setIsSubmitting(false)
     }
